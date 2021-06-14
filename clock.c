@@ -21,7 +21,7 @@ void *clock_f(){
 		pthread_mutex_lock(&mutex);
 		//printf("Tack %d\n", tack);
 		tack++;
-		eguneratuD();
+		//eguneratuD();
 		prozAld();
 		pthread_mutex_unlock(&mutex);
 
@@ -31,7 +31,7 @@ void *clock_f(){
 	}
 }
 
-
+/*
 void eguneratuD(){
 	int i, j;
 	for (i = 0; i < CORE; i++)
@@ -46,9 +46,15 @@ void eguneratuD(){
 	}
 	
 }
+*/
 
 
 
+/*
+Prozesuak aldatzeko baldintza ezberdinak dira
+Iraupena programa beraren exekuzioak adieraziko du. Zikloka fuuntzionatuko dute.
+Quantum balioak aldatu behar dira
+*/
 void prozAld(){
 	int i, j;
 	for (i = 0; i < CORE; i++)
