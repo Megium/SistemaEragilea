@@ -9,6 +9,7 @@
 #include "global.h"
 #include "loader.h"
 #include "scheduler.h"
+#include "memoria.h"
 
 struct queue ilara;
 void gorde(int core, struct pcb proz);
@@ -21,13 +22,14 @@ void *generateProcess_f(){
     //Ilara objetua sortu eta hasieratu.
     
 	ilara.indizea = 0;
-    //Ilararen tamaina aldakora izango denez, ilara dinamiko bat sortu behar da.
+    //Ilararen tamaina aldakorra izango denez, ilara dinamiko bat sortu behar da.
     ilara.buff = malloc(MAX*sizeof(struct pcb));
 	
 
     int i = 1;
 	int d, l, c, k, j, m, p;
 	int kont=0;
+	char fitxategia[64];
 	k=0;
 	j=0;
 
@@ -47,28 +49,26 @@ void *generateProcess_f(){
         
 		if(d!=0){
 
-			///////////////////////////////////////
-			//	Fitxategia irakurri
-			//////////////////////////////////////
-
-
-
-
 			sleep(d%2);
-            //Prozesu berri bat sortu, pcb motakoa
-			struct pcb prozesu;
+            
+			struct pcb prozesu;			//Prozesu berri bat sortu, pcb motakoa
 
-			//Prozesu berriari pid bat esleitu
-			prozesu.pid = i;
-			//prozesuari lehentasun bat esleitu ausaz
-			prozesu.lehentasuna = l;
-			prozesu.iraupena = c;
-			prozesu.egoera = 1;
-			prozesu.pasatakoD = 0;
-			prozesu.erabilera = 0;
-			printf("%d. prozesua sortu da. Iraupena %d\n", i, prozesu.iraupena);
+			prozesu.pid = i;			//Prozesu berriari pid bat esleitu
+			
+			prozesu.lehentasuna = l;	//prozesuari lehentasun bat esleitu ausaz
+			prozesu.egoera = 1;			//prozesua zai egoeran jarri
+			prozesu.erabilera = 0;		//prozesua ez dago exekuzio ilara batean
 
-            //bufferrean sartu beharreko prozesua sortzeko deia egin
+			if (d%50 < 10){
+				sprintf(fitxategia, "Programak/prog00%d.elf", d%50);
+			}else{
+				sprintf(fitxategia, "Programak/prog0%d.elf", d%50);
+			}
+
+			irakurriFitxategitik(prozesu, fitxategia);		//sortutako prozesuan programa bat kargatu eta dagozkio eremuak bete
+															//memoriari dagozkion pgb, text eta data
+
+            //bufferrean(ilara nagusian) sartu beharreko prozesua sortzeko deia egin
             while(k==0){
 
 				pthread_mutex_lock(&mutex2);
@@ -135,26 +135,5 @@ void gorde(int core, struct pcb proz){
 	
 }
 
-datuBlokea fitxategiaIrakurri(char file_name[]){
-	fp = fopen(file_name, "r"); // read mode
-
-	if (fp == NULL){
-		perror("Error while opening the file.\n");
-		exit(EXIT_FAILURE);
-	}
-	
-	int progIlara = 0;
-
-	while((ch = fgetc(fp)) != EOF){
-		if(ch != '\n'){
-			lerroa[] = lerroa[] + ch;
-		}
-		else{
-			datuBlokea[progIlara] = lerroa; 
-		}
-	}
-
-   fclose(fp);
-}
 
 

@@ -3,5 +3,4 @@
 #define int ORRI_TAULA 3145728;			//Kernelaren azken laurdena
 #define int MEM_BUK 16777216;			//0xFFFFFF
 
-
-
+void irakurriFitxategitik(pcb proz, unsigned char fitx[64]);

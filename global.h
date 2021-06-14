@@ -17,18 +17,11 @@ extern struct cpu prozesagailu;
 //Prozesuaren informazioa gordetzeko
 struct pcb
 {
-int pid;
-int lehentasuna;
-//Prozesuak exekutatzeko beharko duen denbora
-int iraupena;
-//1=zai, 2=exekuzioan, 3=Blokeatuta, 4=Exekutatua
-int egoera;
-//Prozesua core-ren batean dagoen ala ez. 0 = erabili gabe; 1 = core baten barruan
-int erabilera;
-//Prozesuak exekuzioan daraman denbora
-int pasatakoD;
-
-memorimManagement mm ;
+int pid;				//Prozesuaren identifikatzailea
+int lehentasuna;		//Exekutatzerako garaian prozesuak izango duen lehentasuna
+int egoera;				//1=zai, 2=exekuzioan, 3=Blokeatuta, 4=Exekutatua
+int erabilera;			//Prozesua core-ren batean dagoen ala ez. 0 = erabili gabe; 1 = core baten barruan
+memorimManagement mm ;  //Memoria kudeatzeko balioak
 }
 //Prozesuak sartzeko ilara, bertan buffer bat prozesuen informazioekin eta sorturiko prozesu kopuruarekin.
 struct queue
