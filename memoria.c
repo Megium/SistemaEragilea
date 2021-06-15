@@ -53,7 +53,6 @@ while (fgets(buffer, buff_luz, FP)) {
 	kont++;
 	MemNag[kont].hitza = buffer;
 	MemNag[kont].libre = 1;
-
 }
 
 fclose(FP);

@@ -54,7 +54,7 @@ struct haria
 	//instruction register
 	int ir;
 	//Page table base register
-	char ptbr;	//memoria nagusian orri taula non jasoa dagoen esaten du.
+	int ptbr;	//memoria nagusian orri taula non jasoa dagoen esaten du.
 	struct MMU;
 };
 struct core
