@@ -51,7 +51,7 @@ if (fgets(buffer, buff_luz, FP))
 
 while (fgets(buffer, buff_luz, FP)) {
 	kont++;
-	MemNag[kont].hitza[0] = (int)strtol(buffer, NULL, 16);
+	MemNag[kont].hitza = buffer;
 	MemNag[kont].libre = 1;
 
 }
@@ -66,8 +66,8 @@ gordeko da eta erreferentzia prozesuaren pgb an ere bai.
 int j;
 for(j = ORRI_TAULA; j < KERNEL_BUK; j++){
 	if(MemNag[j].libre == 0){
-		MemNag[j].hitza[0] = i;
-		MemNag[j].hitza[0] = kont;
+		MemNag[j].orriT[0] = i;
+		MemNag[j].orriT[0] = kont;
 		MemNag[j].libre = 1;
 
 		proz.mm.pgb = j;

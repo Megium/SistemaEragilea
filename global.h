@@ -90,8 +90,8 @@ struct MMU
 
 struct Nagusia
 {
-	int hitza[2];				//4 byteko(32 bit) hitza.
-								//Orri taularen kasuan lehen zatian, aginduan non hasten dire eta bigarrengoan non bukatzen diren.
+	char hitza[8];				//informazio hitzak.
+	int orriT[2];				//Orri taularen kasuan lehen zatian, aginduan non hasten dire eta bigarrengoan non bukatzen diren.
 	int libre;					//blokea libre dagoen ala ez jakiteko. 0 libre, 1 erabiltzen.
 }
 
