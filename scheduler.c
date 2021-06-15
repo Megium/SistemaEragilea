@@ -74,6 +74,7 @@ void exekuzioanJarri(){
 									prozesagailu.corekop[i].harikop[j].erabilgarri = 1;
 									prozesagailu.corekop[i].harikop[j].prozesua = prozesagailu.corekop[i].wait1[k].zerrenda[l];
 									prozesagailu.corekop[i].harikop[j].ptbr = prozesagailu.corekop[i].wait1[k].zerrenda[l].mm.pgb;
+									
 									buk = 1;
 									printf("%d prozesua exekuziora, %d coreko %d harian\n", prozesagailu.corekop[i].wait1[k].zerrenda[l].pid, i, j);
 									break;
@@ -113,6 +114,7 @@ void exekuzioanJarri(){
 									prozesagailu.corekop[i].harikop[j].erabilgarri = 1;
 									prozesagailu.corekop[i].harikop[j].prozesua = prozesagailu.corekop[i].wait2[k].zerrenda[l];
 									prozesagailu.corekop[i].harikop[j].ptbr = prozesagailu.corekop[i].wait2[k].zerrenda[l].mm.pgb;
+
 									buk = 1;
 									printf("%d prozesua exekuziora, %d coreko %d harian\n", prozesagailu.corekop[i].wait2[k].zerrenda[l].pid, i, j);
 									break;
@@ -153,6 +155,13 @@ void exekuzioanJarri(){
 	2.bitak zein erregistrotan gordeko den emaitza(0 tik F arte)
 	3 eta 4.bitak zein erregistrotako datuak batu behar diren(0 tik F arte)
 
+	Exekuzio denborak:
+	- ld: ziklo 1
+	- st: 2 ziklo
+	- add: 4ziklo
+
+	Exekuzioa simulatzeko ziklo bakoitzak denbora bat izango du 
+	non denbora hori clock-ak kontrolatu
 */
 
 void programaExek(pcb proz, int pageT){
