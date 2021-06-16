@@ -10,6 +10,8 @@
 #include "loader.h"
 #include "scheduler.h"
 
+void eguneratuD();
+
 void *timer_f(){
 	
 	while(1){

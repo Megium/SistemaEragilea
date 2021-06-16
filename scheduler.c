@@ -10,6 +10,11 @@
 #include "loader.h"
 
 void exek();
+void exekuzioanJarri();
+void programaExek(struct pcb proz, int pageT);
+int helbideaLortu(char reg[8]);
+void store(int zenb, int helb);
+
 
 void *scheduler_f(){
 	int desp;
@@ -159,14 +164,14 @@ void exekuzioanJarri(){
 	non denbora hori clock-ak kontrolatu
 */
 
-void programaExek(pcb proz, int pageT){
+void programaExek(struct pcb proz, int pageT){
 
 	int Erreg[16];
 	int jauzi = 2;
 	int lag = proz.mm.data / 10;
 	jauzi = jauzi + 4*lag;
 	int helb = MemNag[pageT].orriT[0];
-	char agindu[8];
+	char agindu[64];
 	int i;
 	int buk = 0;
 	int reg1, reg2, reg3;
@@ -179,22 +184,22 @@ void programaExek(pcb proz, int pageT){
 
 		switch(agindu[0]){
 			case '0':		//load
-				reg1 = strtol(agindu[1], NULL, 16);			//zein erregistro erabili behar den lortu
+				reg1 = strtol(&agindu[1], NULL, 16);			//zein erregistro erabili behar den lortu
 				desplaz = helbideaLortu(agindu);			//datuaren helbidea lortu
-				Erreg[reg1] = strtol(MemNag[helb + desplaz], NULL, 16);			//datua erregistroan gorde
+				Erreg[reg1] = strtol(&MemNag[helb + desplaz], NULL, 16);			//datua erregistroan gorde
 				denbora = denbora + 1;
 				break;
 			case '1':		//store
-				reg1 = strtol(agindu[1], NULL, 16);			//zein erregistro erabili behar den lortu
+				reg1 = strtol(&agindu[1], NULL, 16);			//zein erregistro erabili behar den lortu
 				desplaz = helbideaLortu(agindu);			//zein helbidatan gorde behar den lortu
 				store(Erreg[reg1], helb + desplaz);			//store funtzioaren laguntzaz datu hamartarra 
 															//hamaseitar karaktere kate bat bilakatu eta dagokion helbidean gorde
 				denbora = denbora + 2; 
 				break;
 			case '2':		//add
-				reg1 = strtol(agindu[1], NULL, 16);			//zein erregistron gorde behar den lortu
-				reg2 = strtol(agindu[2], NULL, 16);			//lehen datua lortu
-				reg3 = strtol(agindu[3], NULL, 16);			//bigarren datua lortu
+				reg1 = strtol(&agindu[1], NULL, 16);			//zein erregistron gorde behar den lortu
+				reg2 = strtol(&agindu[2], NULL, 16);			//lehen datua lortu
+				reg3 = strtol(&agindu[3], NULL, 16);			//bigarren datua lortu
 				Erreg[reg1] = Erreg[reg2] + Erreg[reg3];	//batuketa egin eta erregistroan gorde
 				denbora = denbora + 4;
 				break;
@@ -212,14 +217,14 @@ void programaExek(pcb proz, int pageT){
 
 }
 
-void int helbideaLortu(char reg[8]){
+int helbideaLortu(char reg[8]){
 	int i;
 	int desplaz;
-	char erreg[100]
+	char erreg[100];
 	for(i = 2; i < 8; i++){						//agindu erregistrotik eragiketa eta erregistroaren datuak kendu
 		erreg[i-2] = reg[i];
 	}
-	desplaz = strtol(erreg, NULL, 16);			//zenbat desplazatu behar den atera
+	desplaz = strtol(&erreg, NULL, 16);			//zenbat desplazatu behar den atera
 	return desplaz / 4;							
 }
 
@@ -237,5 +242,5 @@ void store(int zenb, int helb){					//jasotako datu hamartarra hamaseitarrean bi
             hexadecimalnum[j++] = 55 + remainder;
         zenb = zenb / 16;
     }
-    MemNag[helb] = hexadecimalnum;				//karaktere katea datu hamaseitarrarekin memoriako helbide egokian gorde
+    MemNag[helb].hitza = hexadecimalnum;				//karaktere katea datu hamaseitarrarekin memoriako helbide egokian gorde
 }

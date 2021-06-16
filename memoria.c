@@ -22,12 +22,13 @@ void Memoria(){
 	- Orri taulan gorde helbidea
 	- PCB ko pgb aldagaian orri taulako helbidea gorde.
 */
-void irakurriFitxategitik(pcb proz, unsigned char fitx[64]){
+void irakurriFitxategitik(struct pcb proz, unsigned char fitx[64]){
 
-int buff_luz = 255;
+int buff_luz = 8;
 char buffer[buff_luz];			// datuak fitxategitik ateratzean gordetzeko
 int libre;						// memorian libre dagoen blokea gordetzeko
 int kont;						// datu blokeak kontatzeko
+int i;
 
 for(i = KERNEL_BUK + 1; i < MEM_BUK; i++){
 
@@ -51,7 +52,8 @@ if (fgets(buffer, buff_luz, FP))
 
 while (fgets(buffer, buff_luz, FP)) {
 	kont++;
-	MemNag[kont].hitza = buffer;
+	strncpy(MemNag[kont].hitza, buffer, 8);
+	//MemNag[kont].hitza = buffer;
 	MemNag[kont].libre = 1;
 }
 

@@ -18,7 +18,7 @@ sem_t sche;
 pthread_mutex_t mutex;
 pthread_mutex_t mutex2;
 int MAIZT;
-int MAX;//kanpotik hasieratu behar da.
+int MAX;			//kanpotik hasieratu behar da.
 int POSIZIO;
 int CORE;
 int HARI;
@@ -36,7 +36,6 @@ int main(int argc, char const *argv[]){
 	MAX = atoi(argv[2]);
 	CORE = atoi(argv[3]);
 	HARI = atoi(argv[4]);
-	QUAN = atoi(argv[5]);
 	POSIZIO = 10;
 
 	pthread_mutex_init(&mutex, 0);
@@ -58,7 +57,7 @@ int main(int argc, char const *argv[]){
 		{
 			prozesagailu.corekop[i].harikop[j].hariID = j;
 			prozesagailu.corekop[i].harikop[j].erabilgarri = 0;
-			prozesagailu.corekop[i].harikop[j].quantum = QUAN;
+			prozesagailu.corekop[i].harikop[j].exekDenb = 0;
 		}
 		for (int k = 0; k < 10; k++)
 		{

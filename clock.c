@@ -11,7 +11,6 @@
 #include "scheduler.h"
 
 volatile int tack;
-void eguneratuD();
 void prozAld();
 
 void *clock_f(){
@@ -24,9 +23,7 @@ void *clock_f(){
 		prozAld();
 		pthread_mutex_unlock(&mutex);
 
-		//sem_wait(&sinc2);
-
-		
+		//sem_wait(&sinc2);	
 	}
 }
 
