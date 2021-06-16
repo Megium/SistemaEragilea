@@ -1,4 +1,4 @@
-8extern volatile int tack;
+extern volatile int tack;
 extern int MAIZT;
 extern int MAX;
 extern int POSIZIO;
@@ -21,6 +21,7 @@ int pid;				//Prozesuaren identifikatzailea
 int lehentasuna;		//Exekutatzerako garaian prozesuak izango duen lehentasuna
 int egoera;				//1=zai, 2=exekuzioan, 3=Blokeatuta, 4=Exekutatua
 int erabilera;			//Prozesua core-ren batean dagoen ala ez. 0 = erabili gabe; 1 = core baten barruan
+int iraupena;			//Programaren iraupena, aldkorra programaren arabera.
 memorimManagement mm ;  //Memoria kudeatzeko balioak
 }
 //Prozesuak sartzeko ilara, bertan buffer bat prozesuen informazioekin eta sorturiko prozesu kopuruarekin.
@@ -47,14 +48,10 @@ struct haria
 	int hariID;
 	int erabilgarri;
 	struct pcb prozesua;
-	//int quantum;	//3.zatian prozesu bakoitzaren luzera exekutatu beharreko programak adieraziko du.
-
-	//program counter
-	int pc;
-	//instruction register
-	int ir;
-	//Page table base register
-	int ptbr;	//memoria nagusian orri taula non jasoa dagoen esaten du.
+	int exekDenb;			//Harian dagoen programaren exekuzio denbora kontrolatzeko.
+	int pc;					//program counter
+	int ir;					//instruction register
+	int ptbr;				//memoria nagusian orri taula non jasoa dagoen esaten du.
 	struct MMU;
 };
 struct core

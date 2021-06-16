@@ -20,17 +20,12 @@ void *scheduler_f(){
 		printf("-----------------\n-   Scheduler   -\n-----------------\n");
 		//Ilarako prozesuak prozesadoreetan banatu
 		pthread_mutex_lock(&mutex2);
-		exekuzioanJarri();
-
+			exekuzioanJarri();
 		pthread_mutex_unlock(&mutex2);
-
-		
 	}
 
 
 }
-
-
 
 
 
@@ -74,7 +69,7 @@ void exekuzioanJarri(){
 									prozesagailu.corekop[i].harikop[j].erabilgarri = 1;
 									prozesagailu.corekop[i].harikop[j].prozesua = prozesagailu.corekop[i].wait1[k].zerrenda[l];
 									prozesagailu.corekop[i].harikop[j].ptbr = prozesagailu.corekop[i].wait1[k].zerrenda[l].mm.pgb;
-									
+									programaExek(prozesagailu.corekop[i].harikop[j].prozesua, prozesagailu.corekop[i].harikop[j].ptbr);
 									buk = 1;
 									printf("%d prozesua exekuziora, %d coreko %d harian\n", prozesagailu.corekop[i].wait1[k].zerrenda[l].pid, i, j);
 									break;
@@ -114,7 +109,7 @@ void exekuzioanJarri(){
 									prozesagailu.corekop[i].harikop[j].erabilgarri = 1;
 									prozesagailu.corekop[i].harikop[j].prozesua = prozesagailu.corekop[i].wait2[k].zerrenda[l];
 									prozesagailu.corekop[i].harikop[j].ptbr = prozesagailu.corekop[i].wait2[k].zerrenda[l].mm.pgb;
-
+									programaExek(prozesagailu.corekop[i].harikop[j].prozesua, prozesagailu.corekop[i].harikop[j].ptbr);
 									buk = 1;
 									printf("%d prozesua exekuziora, %d coreko %d harian\n", prozesagailu.corekop[i].wait2[k].zerrenda[l].pid, i, j);
 									break;
@@ -176,6 +171,7 @@ void programaExek(pcb proz, int pageT){
 	int buk = 0;
 	int reg1, reg2, reg3;
 	int desplaz;
+	int denbora = 0;
 
 
 	for(i = 0; i < jauzi; i++){
@@ -186,24 +182,28 @@ void programaExek(pcb proz, int pageT){
 				reg1 = strtol(agindu[1], NULL, 16);			//zein erregistro erabili behar den lortu
 				desplaz = helbideaLortu(agindu);			//datuaren helbidea lortu
 				Erreg[reg1] = strtol(MemNag[helb + desplaz], NULL, 16);			//datua erregistroan gorde
+				denbora = denbora + 1;
 				break;
 			case '1':		//store
 				reg1 = strtol(agindu[1], NULL, 16);			//zein erregistro erabili behar den lortu
 				desplaz = helbideaLortu(agindu);			//zein helbidatan gorde behar den lortu
 				store(Erreg[reg1], helb + desplaz);			//store funtzioaren laguntzaz datu hamartarra 
 															//hamaseitar karaktere kate bat bilakatu eta dagokion helbidean gorde
+				denbora = denbora + 2; 
 				break;
 			case '2':		//add
 				reg1 = strtol(agindu[1], NULL, 16);			//zein erregistron gorde behar den lortu
 				reg2 = strtol(agindu[2], NULL, 16);			//lehen datua lortu
 				reg3 = strtol(agindu[3], NULL, 16);			//bigarren datua lortu
 				Erreg[reg1] = Erreg[reg2] + Erreg[reg3];	//batuketa egin eta erregistroan gorde
+				denbora = denbora + 4;
 				break;
 			case 'F':		//bukatu
 				buk = 1;
 				break;
 		}
 		if(buk == 1){
+			proz.iraupena = denbora;
 			break;
 		}
 

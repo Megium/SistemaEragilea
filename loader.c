@@ -33,7 +33,7 @@ void *generateProcess_f(){
 	k=0;
 	j=0;
 
-	for (int p = 0; p < MAX; p++)
+	for (p = 0; p < MAX; p++)
 	{
 		ilara.buff[p].erabilera = 1;
 		ilara.buff[p].pid = 0;

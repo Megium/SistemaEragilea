@@ -18,6 +18,7 @@ void *timer_f(){
 			pthread_mutex_lock(&mutex);
 			printf("Ziklo bat pasa da\n");
 			tack = 0;
+			eguneratuD();
 			pthread_mutex_unlock(&mutex);
 			
 			sem_post(&sche);
@@ -26,4 +27,18 @@ void *timer_f(){
 		
 		//sem_post(&sinc);
 	}
+}
+
+void eguneratuD(){
+	int i, j;
+	for (i = 0; i < CORE; i++)
+	{
+		for ( j = 0; j < HARI; j++)
+		{
+			if(prozesagailu.corekop[i].harikop[j].erabilgarri == 1){
+				prozesagailu.corekop[i].harikop[j].exekDenb++;			//harian dagoen denbora eguneratu.
+			}			
+		}
+	}
+	
 }
