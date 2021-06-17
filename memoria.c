@@ -15,14 +15,13 @@ void Memoria(){
 
 }
 
-
 /*
 	- Memoria fisikoko hasiera helbidea gorde
 	- Datuak segidan sartu memorian, memoriako blokeak ez daudela libre adierazi
 	- Orri taulan gorde helbidea
 	- PCB ko pgb aldagaian orri taulako helbidea gorde.
 */
-void irakurriFitxategitik(struct pcb proz, unsigned char fitx[64]){
+struct pcb irakurriFitxategitik(struct pcb proz, unsigned char fitx[64]){
 
 int buff_luz = 8;
 char buffer[buff_luz];			// datuak fitxategitik ateratzean gordetzeko
@@ -72,7 +71,9 @@ for(j = ORRI_TAULA; j < KERNEL_BUK; j++){
 		MemNag[j].libre = 1;
 
 		proz.mm.pgb = j;
+		break;
 	}
 }
+return proz;
 
 }

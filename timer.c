@@ -22,9 +22,7 @@ void *timer_f(){
 			tack = 0;
 			eguneratuD();
 			pthread_mutex_unlock(&mutex);
-			
 			sem_post(&sche);
-
 		}
 		
 		//sem_post(&sinc);

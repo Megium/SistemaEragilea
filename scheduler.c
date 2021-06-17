@@ -11,8 +11,8 @@
 
 void exek();
 void exekuzioanJarri();
-void programaExek(struct pcb proz, int pageT);
-int helbideaLortu(char reg[8]);
+void programaExek(struct pcb * proz, int pageT);
+int helbideaLortu(char *reg[8]);
 void store(int zenb, int helb);
 
 
@@ -28,8 +28,6 @@ void *scheduler_f(){
 			exekuzioanJarri();
 		pthread_mutex_unlock(&mutex2);
 	}
-
-
 }
 
 
@@ -74,7 +72,7 @@ void exekuzioanJarri(){
 									prozesagailu.corekop[i].harikop[j].erabilgarri = 1;
 									prozesagailu.corekop[i].harikop[j].prozesua = prozesagailu.corekop[i].wait1[k].zerrenda[l];
 									prozesagailu.corekop[i].harikop[j].ptbr = prozesagailu.corekop[i].wait1[k].zerrenda[l].mm.pgb;
-									programaExek(prozesagailu.corekop[i].harikop[j].prozesua, prozesagailu.corekop[i].harikop[j].ptbr);
+									programaExek(&prozesagailu.corekop[i].harikop[j].prozesua, prozesagailu.corekop[i].harikop[j].ptbr);
 									buk = 1;
 									printf("%d prozesua exekuziora, %d coreko %d harian\n", prozesagailu.corekop[i].wait1[k].zerrenda[l].pid, i, j);
 									break;
@@ -114,7 +112,7 @@ void exekuzioanJarri(){
 									prozesagailu.corekop[i].harikop[j].erabilgarri = 1;
 									prozesagailu.corekop[i].harikop[j].prozesua = prozesagailu.corekop[i].wait2[k].zerrenda[l];
 									prozesagailu.corekop[i].harikop[j].ptbr = prozesagailu.corekop[i].wait2[k].zerrenda[l].mm.pgb;
-									programaExek(prozesagailu.corekop[i].harikop[j].prozesua, prozesagailu.corekop[i].harikop[j].ptbr);
+									programaExek(&prozesagailu.corekop[i].harikop[j].prozesua, prozesagailu.corekop[i].harikop[j].ptbr);
 									buk = 1;
 									printf("%d prozesua exekuziora, %d coreko %d harian\n", prozesagailu.corekop[i].wait2[k].zerrenda[l].pid, i, j);
 									break;
@@ -164,11 +162,11 @@ void exekuzioanJarri(){
 	non denbora hori clock-ak kontrolatu
 */
 
-void programaExek(struct pcb proz, int pageT){
+void programaExek(struct pcb *proz, int pageT){
 
 	int Erreg[16];
 	int jauzi = 2;
-	int lag = proz.mm.data / 10;
+	int lag = proz->mm.data / 10;
 	jauzi = jauzi + 4*lag;
 	int helb = MemNag[pageT].orriT[0];
 	char agindu[64];
@@ -185,13 +183,13 @@ void programaExek(struct pcb proz, int pageT){
 		switch(agindu[0]){
 			case '0':		//load
 				reg1 = strtol(&agindu[1], NULL, 16);			//zein erregistro erabili behar den lortu
-				desplaz = helbideaLortu(agindu);			//datuaren helbidea lortu
+				desplaz = helbideaLortu(&agindu);			//datuaren helbidea lortu
 				Erreg[reg1] = strtol(&MemNag[helb + desplaz], NULL, 16);			//datua erregistroan gorde
 				denbora = denbora + 1;
 				break;
 			case '1':		//store
 				reg1 = strtol(&agindu[1], NULL, 16);			//zein erregistro erabili behar den lortu
-				desplaz = helbideaLortu(agindu);			//zein helbidatan gorde behar den lortu
+				desplaz = helbideaLortu(&agindu);			//zein helbidatan gorde behar den lortu
 				store(Erreg[reg1], helb + desplaz);			//store funtzioaren laguntzaz datu hamartarra 
 															//hamaseitar karaktere kate bat bilakatu eta dagokion helbidean gorde
 				denbora = denbora + 2; 
@@ -208,7 +206,7 @@ void programaExek(struct pcb proz, int pageT){
 				break;
 		}
 		if(buk == 1){
-			proz.iraupena = denbora;
+			proz->iraupena = denbora;
 			break;
 		}
 
@@ -217,7 +215,7 @@ void programaExek(struct pcb proz, int pageT){
 
 }
 
-int helbideaLortu(char reg[8]){
+int helbideaLortu(char * reg[8]){
 	int i;
 	int desplaz;
 	char erreg[100];
@@ -231,7 +229,7 @@ int helbideaLortu(char reg[8]){
 void store(int zenb, int helb){					//jasotako datu hamartarra hamaseitarrean bilakatu
 	long remainder;
     int i, j = 0;
-    char hexadecimalnum[8];
+    char *hexadecimalnum;
  
     while (zenb != 0)
     {

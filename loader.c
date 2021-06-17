@@ -134,6 +134,3 @@ void gorde(int core, struct pcb proz){
 	}
 	
 }
-
-
-

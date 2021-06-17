@@ -27,7 +27,6 @@ void *clock_f(){
 	}
 }
 
-
 /*
 Prozesuak iraungo duen denbora programak berak ezartzen du.
 Hariak duen ziklo kontagailuarekin alderatuko da prozesuaren denbora.

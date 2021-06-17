@@ -81,9 +81,6 @@ struct cpu
 {
 	struct core *corekop;
 };
-//////////////////
-//3.zatiko datuegiturak
-//////////////////
 
 struct Nagusia
 {

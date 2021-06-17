@@ -3,4 +3,5 @@
 #define  ORRI_TAULA 3145728			//Kernelaren azken laurdena
 #define  MEM_BUK 16777216			//0xFFFFFF
 
-void irakurriFitxategitik(struct pcb proz, unsigned char fitx[64]);
+struct pcb irakurriFitxategitik(struct pcb proz, unsigned char fitx[64]);
+

@@ -10,9 +10,3 @@ git push -u origin master
 
 
 EGIN BEHARREKOAK:
-
-	->Aurreko programako quantum denboren funtzioak aldatu. Orain programaren exekuzioarekin funtzionatuko dute.
-
-	->MMU barruko TLB taularen funtzionamendua inplementatu.
-
-	->PC eta IR balioak eman
